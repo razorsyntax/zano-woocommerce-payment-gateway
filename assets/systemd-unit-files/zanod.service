@@ -1,0 +1,14 @@
+[Unit]
+Description=Zano Full Node
+After=network.target
+
+[Service]
+User=zanoservices
+Group=zanoservices
+WorkingDirectory=/opt/zano-data-dir
+Type=simple
+LimitNOFILE=65535
+ExecStart=./zanod --rpc-bind-ip 127.0.0.1 --rpc-bind-port 11211 --enable-offers-service
+Restart=always
+[Install]
+WantedBy=multi-user.target

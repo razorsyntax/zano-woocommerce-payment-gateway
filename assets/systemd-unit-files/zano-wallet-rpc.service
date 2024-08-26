@@ -1,0 +1,15 @@
+[Unit]
+Description=Zano Wallet RPC
+After=network.target zanod.service
+
+[Service]
+User=zanoservices
+Group=zanoservices
+WorkingDirectory=/opt/zano-wallets
+Type=simple
+ExecStart=./simplewallet --wallet-file /Users/davidschwartz/Desktop/TestNet_Wallet --password Password123! --rpc-bind-ip 127.0.0.1 --rpc-bind-port 11212 --daemon-address 127.0.0.1:11211
+
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
