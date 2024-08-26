@@ -124,6 +124,6 @@ This will display a badge showing that you accept Zano-currency.
 * Enable Zano RPC for self-hosting
 * Add ability to make payments using Zano Companion extention
 
-## Donations
+## Donations in Zano
 
 razorsyntax: ZxDskQm2MLP2BUYjf1T38fKQuFaep1MAoHZevNVWpVeZULGm54qBXTJ5YPmWMjAfNeLWnyjyf47GE55KwFGMsxsq2BCNNup5s
