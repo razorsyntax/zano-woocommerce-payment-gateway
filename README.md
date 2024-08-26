@@ -8,6 +8,9 @@ We're stilling porting from the Monero Gateway for WooCommerce.
 ### A fork based of of the Monero Gateway for WooCommerce
 
 
+# Don't assume the documentation below is usable yet.
+
+
 
 ## Features
 
