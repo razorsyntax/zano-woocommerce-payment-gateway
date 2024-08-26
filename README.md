@@ -1,11 +1,13 @@
-⚠️ Caution ⚠️
+# ⚠️ Caution ⚠️
 
-# This is a work in progress
+## This is a work in progress and we're looking for contributors.
 
-We're stilling porting from the Monero Gateway for WooCommerce
+We're stilling porting from the Monero Gateway for WooCommerce.
 
 # Zano Gateway for WooCommerce
 ### A fork based of of the Monero Gateway for WooCommerce
+
+
 
 ## Features
 
