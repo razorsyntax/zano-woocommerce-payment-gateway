@@ -1,11 +1,16 @@
-⚠️ Caution ⚠️
+# ⚠️ Caution ⚠️
 
-# This is a work in progress
+## This is a work in progress and we're looking for contributors.
 
-We're stilling porting from the Monero Gateway for WooCommerce
+We're stilling porting from the Monero Gateway for WooCommerce.
 
 # Zano Gateway for WooCommerce
 ### A fork based of of the Monero Gateway for WooCommerce
+
+
+# Don't assume the documentation below is usable yet.
+
+
 
 ## Features
 
@@ -122,6 +127,6 @@ This will display a badge showing that you accept Zano-currency.
 * Enable Zano RPC for self-hosting
 * Add ability to make payments using Zano Companion extention
 
-## Donations
+## Donations in Zano
 
 razorsyntax: ZxDskQm2MLP2BUYjf1T38fKQuFaep1MAoHZevNVWpVeZULGm54qBXTJ5YPmWMjAfNeLWnyjyf47GE55KwFGMsxsq2BCNNup5s
