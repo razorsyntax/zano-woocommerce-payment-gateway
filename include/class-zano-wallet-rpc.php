@@ -50,7 +50,7 @@ class Zano_Wallet_Rpc
 
         // Daemon RPC
         $this->daemonPort = $daemonPort;
-        $this->daemonUrl = $pHost . ':' . $daemonPort;
+        $this->daemonUrl = $pHost . ':' . $daemonPort . '/json_rpc';
 
     }
 
@@ -157,18 +157,10 @@ class Zano_Wallet_Rpc
     {
         static $requestId = 0;
 
-        // generating uniuqe id per process
-        $requestId++;
-
         // check if given params are correct
         $this->validate(false === is_scalar($pMethod), 'Method name has no scalar value');
 
-        if ($pMethod == 'getheight') {
-            $request = json_encode(array(), JSON_FORCE_OBJECT);
-        } else {
-            // Request (method invocation)
-            $request = json_encode(array('jsonrpc' => '2.0', 'method' => $pMethod, 'params' => $pParams, 'id' => $requestId));
-        }
+        $request = json_encode(array("id" => $requestId, 'jsonrpc' => '2.0', "method" => $pMethod, "params" => $pParams));
 
         // if is_debug mode is true then add url and request to is_debug
         $this->debug('Url: ' . $this->daemonUrl . "\r\n", false);
@@ -186,25 +178,21 @@ class Zano_Wallet_Rpc
         // check if decoding json generated any errors
         $jsonErrorMsg = $this->getJsonLastErrorMsg();
         $this->validate(!is_null($jsonErrorMsg), $jsonErrorMsg . ': ' . $responseMessage);
-        // check if response is correct
-        if ($pMethod == 'getheight') {
-            $this->validate(empty($responseDecoded['height']), 'Invalid response data structure: ' . $responseMessage);
-            $this->validate($responseDecoded['status'] != 'OK', 'Property "status" came back invalid: ' . $responseDecoded['status']);
-            return $responseDecoded['height'];
-        } else {
-            $this->validate(empty($responseDecoded['id']), 'Invalid response data structure: ' . $responseMessage);
-            $this->validate($responseDecoded['id'] != $requestId, 'Request id: ' . $requestId . ' is different from Response id: ' . $responseDecoded['id']);
-            if (isset($responseDecoded['error'])) {
-                $errorMessage = 'Request have return error: ' . $responseDecoded['error']['message'] . '; ' . "\n" .
-                    'Request: ' . $request . '; ';
-                if (isset($responseDecoded['error']['data'])) {
-                    $errorMessage .= "\n" . 'Error data: ' . $responseDecoded['error']['data'];
-                }
-                $this->validate(!is_null($responseDecoded['error']), $errorMessage);
-            }
-            return $responseDecoded['result'];
-        }
 
+        // validation
+        $this->validate(empty($responseDecoded['id']), 'Invalid response data structure: ' . $responseMessage);
+        $this->validate($responseDecoded['id'] != $requestId, 'Request id: ' . $requestId . ' is different from Response id: ' . $responseDecoded['id']);
+        if (isset($responseDecoded['error'])) {
+            $errorMessage = 'Request have return error: ' . $responseDecoded['error']['message'] . '; ' . "\n" .
+                'Request: ' . $request . '; ';
+            if (isset($responseDecoded['error']['data'])) {
+                $errorMessage .= "\n" . 'Error data: ' . $responseDecoded['error']['data'];
+            }
+            $this->validate(!is_null($responseDecoded['error']), $errorMessage);
+        }
+        $this->validate(empty($responseDecoded['result']), 'Invalid response data structure: result property is missing');
+
+        return $responseDecoded['result'];
     }
 
     protected function debug($pAdd, $pShow = false)
@@ -361,8 +349,9 @@ class Zano_Wallet_Rpc
 
     public function getheight()
     {
-        $height = $this->_runDaemon('getheight');
-        return $height;
+        $params = array('flags' => 1048575);
+        $height = $this->_runDaemon('getinfo', $params);
+        return $height['height'];
     }
 
     public function incoming_transfer($type)
