@@ -180,7 +180,7 @@ class Zano_Wallet_Rpc
         $this->validate(!is_null($jsonErrorMsg), $jsonErrorMsg . ': ' . $responseMessage);
 
         // validation
-        $this->validate(empty($responseDecoded['id']), 'Invalid response data structure: ' . $responseMessage);
+        $this->validate(!isset($responseDecoded['id']), 'Invalid response data structure: id property is missing');
         $this->validate($responseDecoded['id'] != $requestId, 'Request id: ' . $requestId . ' is different from Response id: ' . $responseDecoded['id']);
         if (isset($responseDecoded['error'])) {
             $errorMessage = 'Request have return error: ' . $responseDecoded['error']['message'] . '; ' . "\n" .
