@@ -1,4 +1,7 @@
-# ⚠️ Caution ⚠️
+# ⚠️ RETIRED ⚠️
+
+# Use https://github.com/galtpos/woocommerce-zano-gateway/issues instead
+
 
 ## This is a work in progress and we're looking for contributors.
 
